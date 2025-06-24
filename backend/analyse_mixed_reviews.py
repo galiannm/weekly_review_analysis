@@ -1,46 +1,39 @@
-import re
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from load_data import load_data
-from analyse_reviews import get_sentiment
+# analyse_mixed_reviews.py
 
-analyzer = SentimentIntensityAnalyzer()
+import re
+from analyse_reviews import bert_sentiment, get_sentiment
+from load_data import load_data
 
 # Pre-compile regexes once
 sentence_re   = re.compile(r'[^.!?]+[.!?]?')                       # grabs full sentences, keeps punctuation
-contrast_re   = re.compile(r'\b(?:but|however|though|although|yet)\b',
-                           flags=re.IGNORECASE)                    # non-capturing!
+contrast_re   = re.compile(r'\b(?:but|however|though|although|yet)\b', flags=re.IGNORECASE)
 punct_only_re = re.compile(r'^[\W_]+$')                            # purely punctuation/spaces
 
-def split_mixed_reviews(text):
+def split_mixed_reviews(text: str):
     """
     Break a “mixed” review into smaller clauses, drop noise,
-    then label each clause positive or negative.
+    then label each clause positive or negative via BERT.
+    Returns a list of (label, clause) tuples.
     """
     fragments = []
-    # 1) get sentences (keeps trailing .!? if present)
     sentences = sentence_re.findall(text.strip())
 
     for sent in sentences:
-        # 2) split on contrast words, dropping the word itself
         parts = contrast_re.split(sent)
         for part in parts:
             clause = part.strip()
-            # 3) drop anything empty, too short, or pure punctuation
             if not clause or len(clause) < 3 or punct_only_re.match(clause):
                 continue
-            # 4) ensure it ends in punctuation for clarity
             if clause[-1] not in '.!?':
                 clause += '.'
-            # 5) score with VADER
-            score = analyzer.polarity_scores(clause)['compound']
-            if score >  0.05:
+            score = bert_sentiment(clause)
+            if score >  0:
                 fragments.append(('positive', clause))
-            elif score < -0.05:
+            elif score <  0:
                 fragments.append(('negative', clause))
-            # neutrals are ignored
     return fragments
 
-
+# Load data and annotate if needed
 df = load_data("reviews")
 if 'sentiment' not in df.columns:
     df['sentiment'] = df['text'].apply(get_sentiment)
@@ -49,17 +42,16 @@ positive_phrases = []
 negative_phrases = []
 mixed_reviews   = []
 
-week = df["week"].unique()[2]
+week = df["week"].unique()[1]
 for _, review in df[df["week"] == week].iterrows():
     text = review['text']
     comp = review['sentiment']
 
-    # 1) First, break into clause-level sentiments
     clauses = split_mixed_reviews(text)
     labels  = {lbl for lbl, _ in clauses}
 
-    # 2) If we see both positive AND negative, force “mixed”
-    if 'positive' in labels and 'negative' in labels:
+    # 1) Force mixed if both polarities exist
+    if labels == {'positive', 'negative'}:
         mixed_reviews.append(text)
         for lbl, clause in clauses:
             if lbl == 'positive':
@@ -67,20 +59,17 @@ for _, review in df[df["week"] == week].iterrows():
             else:
                 negative_phrases.append(clause)
 
-    # 3) Otherwise fall back to your strong-polarity thresholds
-    elif comp >= 0.3:
+    # 2) Purely positive or negative by strong overall sentiment
+    elif comp >= 0.5:
         positive_phrases.append(text)
-    elif comp <= -0.3:
+    elif comp <= -0.5:
         negative_phrases.append(text)
+
+    # 3) Everything else is mixed
     else:
-        # truly neutral/mixed but with no clear opposing clauses
         mixed_reviews.append(text)
         for lbl, clause in clauses:
             if lbl == 'positive':
                 positive_phrases.append(clause)
             else:
                 negative_phrases.append(clause)
-
-print("Mixed reviews:", mixed_reviews)
-print("\nPositive snippets:", positive_phrases)
-print("\nNegative snippets:", negative_phrases)
