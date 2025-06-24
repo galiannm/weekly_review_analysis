@@ -1,0 +1,257 @@
+[
+  {
+    "text": "Amazing service, I loved it! The staff went above and beyond.",
+    "rating": 5,
+    "date": "2025-06-10"
+  },
+  {
+    "text": "Not very clean, and the staff was slow to respond to requests.",
+    "rating": 2,
+    "date": "2025-06-11"
+  },
+  {
+    "text": "Great drinks but the music was too loud for conversation.",
+    "rating": 4,
+    "date": "2025-06-17"
+  },
+  {
+    "text": "Awful experience. Food was cold and service was rude. Never coming back!",
+    "rating": 1,
+    "date": "2025-06-18"
+  },
+  {
+    "text": "Perfect date night spot! Romantic ambiance and delicious food.",
+    "rating": 5,
+    "date": "2025-06-12"
+  },
+  {
+    "text": "Overpriced for what you get. Portions were tiny.",
+    "rating": 2,
+    "date": "2025-06-13"
+  },
+  {
+    "text": "Fast service and tasty cocktails. Will definitely return.",
+    "rating": 4,
+    "date": "2025-06-14"
+  },
+  {
+    "text": "Reservation was lost but they compensated us with free drinks. Good recovery!",
+    "rating": 4,
+    "date": "2025-06-15"
+  },
+  {
+    "text": "Dirty silverware and stained menus. Needs better hygiene standards.",
+    "rating": 1,
+    "date": "2025-06-16"
+  },
+  {
+    "text": "Best burger in town! Cooked perfectly medium-rare as requested.",
+    "rating": 5,
+    "date": "2025-06-19"
+  },
+  {
+    "text": "Waiter spilled wine on my dress and didn't even apologize properly.",
+    "rating": 1,
+    "date": "2025-06-20"
+  },
+  {
+    "text": "Great vegan options. As a vegetarian, I really appreciated the variety.",
+    "rating": 5,
+    "date": "2025-06-21"
+  },
+  {
+    "text": "AC was broken and it was uncomfortably hot the entire evening.",
+    "rating": 2,
+    "date": "2025-06-22"
+  },
+  {
+    "text": "Excellent wine pairing suggestions from the sommelier.",
+    "rating": 5,
+    "date": "2025-06-23"
+  },
+  {
+    "text": "Took 45 minutes to get our appetizers. Kitchen was clearly overwhelmed.",
+    "rating": 2,
+    "date": "2025-06-24"
+  },
+  {
+    "text": "Beautiful rooftop views of the city. Drinks were creative and well-balanced.",
+    "rating": 5,
+    "date": "2025-06-25"
+  },
+  {
+    "text": "Found a hair in my food. Manager handled it professionally though.",
+    "rating": 3,
+    "date": "2025-06-26"
+  },
+  {
+    "text": "Cocktails were watered down. Felt like they were cutting corners.",
+    "rating": 2,
+    "date": "2025-06-27"
+  },
+  {
+    "text": "Impeccable service from start to finish. Worth every penny.",
+    "rating": 5,
+    "date": "2025-06-28"
+  },
+  {
+    "text": "Menu items didn't match the descriptions. Very misleading.",
+    "rating": 2,
+    "date": "2025-06-29"
+  },
+  {
+    "text": "The chef's tasting menu was an unforgettable experience!",
+    "rating": 5,
+    "date": "2025-06-30"
+  },
+  {
+    "text": "Hostess was rude when we arrived 5 minutes early for our reservation.",
+    "rating": 2,
+    "date": "2025-07-01"
+  },
+  {
+    "text": "Perfect spot for anniversary dinner. They even gave us complimentary champagne!",
+    "rating": 5,
+    "date": "2025-07-02"
+  },
+  {
+    "text": "Tables were too close together. Felt like we were dining with strangers.",
+    "rating": 3,
+    "date": "2025-07-03"
+  },
+  {
+    "text": "The steak was cooked perfectly but the sides were bland.",
+    "rating": 4,
+    "date": "2025-07-04"
+  },
+  {
+    "text": "Amazing happy hour deals! Half-price cocktails were surprisingly good quality.",
+    "rating": 5,
+    "date": "2025-07-05"
+  },
+  {
+    "text": "Reservation system online is broken. Double-charged my credit card.",
+    "rating": 1,
+    "date": "2025-07-06"
+  },
+  {
+    "text": "Best tiramisu I've ever had outside of Italy!",
+    "rating": 5,
+    "date": "2025-07-07"
+  },
+  {
+    "text": "Kids menu options were limited and overpriced.",
+    "rating": 2,
+    "date": "2025-07-08"
+  },
+  {
+    "text": "Bartender remembered my favorite drink from last visit. Now that's service!",
+    "rating": 5,
+    "date": "2025-07-09"
+  },
+  {
+    "text": "Food poisoning after eating the seafood pasta. Had to leave early.",
+    "rating": 1,
+    "date": "2025-07-10"
+  },
+  {
+    "text": "Live jazz band created a wonderful atmosphere without being too loud.",
+    "rating": 5,
+    "date": "2025-07-11"
+  },
+  {
+    "text": "Automatic 20% service charge is ridiculous for counter service.",
+    "rating": 2,
+    "date": "2025-07-12"
+  },
+  {
+    "text": "Their signature cocktail lived up to the hype. Will dream about it!",
+    "rating": 5,
+    "date": "2025-07-13"
+  },
+  {
+    "text": "Took forever to get the check after we finished eating.",
+    "rating": 3,
+    "date": "2025-07-14"
+  },
+  {
+    "text": "Gluten-free options clearly marked. As a celiac, I felt safe eating here.",
+    "rating": 5,
+    "date": "2025-07-15"
+  },
+  {
+    "text": "Bathrooms were filthy. Disgusting conditions.",
+    "rating": 1,
+    "date": "2025-07-16"
+  },
+  {
+    "text": "The tasting menu with wine pairing was worth every penny!",
+    "rating": 5,
+    "date": "2025-07-17"
+  },
+  {
+    "text": "Server kept interrupting our conversation to ask if everything was okay.",
+    "rating": 3,
+    "date": "2025-07-18"
+  },
+  {
+    "text": "Best espresso martini in the city! Perfect balance of flavors.",
+    "rating": 5,
+    "date": "2025-07-19"
+  },
+  {
+    "text": "Vegetable risotto was undercooked and underseasoned.",
+    "rating": 2,
+    "date": "2025-07-20"
+  },
+  {
+    "text": "They accommodated our group of 12 with no issues. Impressive!",
+    "rating": 5,
+    "date": "2025-07-21"
+  },
+  {
+    "text": "Charged $18 for a basic gin and tonic. Highway robbery!",
+    "rating": 1,
+    "date": "2025-07-22"
+  },
+  {
+    "text": "The sommelier's wine recommendation paired perfectly with my steak.",
+    "rating": 5,
+    "date": "2025-07-23"
+  },
+  {
+    "text": "Valet parking took 30 minutes to retrieve our car. Unacceptable.",
+    "rating": 2,
+    "date": "2025-07-24"
+  },
+  {
+    "text": "Weekend brunch buffet had an incredible variety. Bloody Mary bar was genius!",
+    "rating": 5,
+    "date": "2025-07-25"
+  },
+  {
+    "text": "Table was wobbly and staff didn't fix it despite multiple requests.",
+    "rating": 2,
+    "date": "2025-07-26"
+  },
+  {
+    "text": "The chocolate soufflé was pure heaven. Worth the 20-minute wait!",
+    "rating": 5,
+    "date": "2025-07-27"
+  },
+  {
+    "text": "Automatic 18% tip added for a party of 3? That's absurd.",
+    "rating": 2,
+    "date": "2025-07-28"
+  },
+  {
+    "text": "Mixologist created a custom cocktail based on my preferences. So impressed!",
+    "rating": 5,
+    "date": "2025-07-29"
+  },
+  {
+    "text": "Dessert menu said 'seasonal berries' but it was just strawberries from a package.",
+    "rating": 2,
+    "date": "2025-07-30"
+  }
+]
