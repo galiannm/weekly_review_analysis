@@ -1,6 +1,3 @@
-# analyse_sentiment.py
-
-import re
 from load_data import load_data
 from analyse_reviews import get_sentiment
 from analyse_mixed_reviews import split_mixed_reviews
@@ -9,18 +6,30 @@ from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
 from heapq import nlargest
 
+CATEGORIES = {
+    "service": ["waiter", "waitress", "staff", "host", "friendly", "rude", "attentive"],
+    "food": ["food", "meal", "burger", "steak", "dish", "flavor", "taste"],
+    "hygiene": ["clean", "dirty", "hygiene", "hair", "utensils", "sanitary"],
+    "ambiance": ["music", "noise", "lighting", "atmosphere", "decor", "loud"],
+    "price": ["price", "expensive", "cheap", "cost", "value"],
+    "drinks": ["wine", "beer", "cocktail", "drink", "beverage"]
+}
+
+# def get_classify_sentiment(text_list):
+#     res = {}
+
+#     all_text = " ".join(text_list)
+#     for word in all_text:
+#         w = word.text.lower()
+#         if w in CATEGORIES.keys():
+#             res[//the key] += 1
+
+
 df = load_data("reviews")
 if 'sentiment' not in df.columns:
     df['sentiment'] = df['text'].apply(get_sentiment)
 
-def print_weekly_metrics(df, week):
-    wdf = df[df["week"] == week]
-    avg_sent   = wdf["sentiment"].mean()
-    avg_rating = wdf["rating"].mean()
-    count      = len(wdf)
-    print(f"Week {week}: avg_sentiment={avg_sent:.2f}, avg_rating={avg_rating:.1f}, reviews={count}")
-
-def summarise_weekly_sentiment(text_list, percentage=0.3):
+def summarise_weekly_sentiment(text_list, percentage=0.4):
     try:
         nlp = spacy.load('en_core_web_sm')
     except OSError:
@@ -52,13 +61,7 @@ def summarise_weekly_sentiment(text_list, percentage=0.3):
 
     return " ".join(s.text for s in top_sentences)
 
-if __name__ == "__main__":
-    week = df["week"].unique()[2]
-
-    # 1) Print overall metrics
-    print_weekly_metrics(df, week)
-
-    # 2) Bucket reviews into positive/negative/mixed
+def get_summary_sentiment(week):
     positive_phrases = []
     negative_phrases = []
     mixed_reviews    = []
@@ -86,5 +89,7 @@ if __name__ == "__main__":
     summary_neg = summarise_weekly_sentiment(negative_phrases)
     summary_pos = summarise_weekly_sentiment(positive_phrases)
 
-    print("\nAreas to improve:\n", summary_neg)
-    print("\nPositive areas:\n", summary_pos)
+    return summary_neg, summary_pos
+
+
+

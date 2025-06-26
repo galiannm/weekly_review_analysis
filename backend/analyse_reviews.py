@@ -1,5 +1,3 @@
-# analyse_reviews.py
-
 import re
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -10,8 +8,8 @@ df = load_data("reviews")
 
 # 1) Load a small SST-2–fine-tuned DistilBERT model once
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
-model     = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
-clf       = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
+clf = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
 
 def bert_sentiment(text: str) -> float:
     """
@@ -31,31 +29,43 @@ def get_sentiment(text: str) -> float:
         return SentimentIntensityAnalyzer().polarity_scores(text)["compound"]
     return sum(scores) / len(scores)
 
-if __name__ == "__main__":
-    df["sentiment"] = df["text"].apply(get_sentiment)
+def get_weekly_metrics(df, week):
+    """Calculate metrics for a specific week"""
+    wdf = df[df["week"] == week]
+    return {
+        'week': week,
+        'avg_sentiment': wdf["sentiment"].mean(),
+        'avg_rating': wdf["rating"].mean(),
+        'review_count': len(wdf)
+    }
 
-    # Group by week and print metrics
-    weekly_summary = df.groupby("week").agg(
-        avg_sentiment=("sentiment", "mean"),
-        avg_rating=("rating", "mean"),
-        reviews_count=("text", "count")
-    ).reset_index()
+def print_metrics(metrics, mood=None):
+    """Print formatted metrics with optional mood"""
+    print(f"\n📅 Week {metrics['week']}")
+    print(f" - Avg Sentiment: {metrics['avg_sentiment']:.2f}" + 
+          (f" ({mood})" if mood else ""))
+    print(f" - Avg Rating: {metrics['avg_rating']:.1f} ⭐")
+    print(f" - Review Count: {metrics['review_count']}")
 
+def print_weekly_metrics(df, week):
+    """Print metrics for a single week"""
+    metrics = get_weekly_metrics(df, week)
+    print_metrics(metrics)
+
+def print_all_weekly_metrics(df):
+    """Print metrics for all weeks with mood analysis"""
+    weekly_data = []
+    for week in df["week"].unique():
+        metrics = get_weekly_metrics(df, week)
+        metrics['mood'] = get_sentiment_category(metrics['avg_sentiment'])
+        weekly_data.append(metrics)
+    
     print("Weekly Reviews Summary")
-    for _, row in weekly_summary.iterrows():
-        week = row["week"]
-        sentiment = row["avg_sentiment"]
-        rating = row["avg_rating"]
-        count = row["reviews_count"]
+    for metrics in sorted(weekly_data, key=lambda x: x['week']):
+        print_metrics(metrics, metrics['mood'])
 
-        if sentiment >  0.3:
-            mood = "Positive"
-        elif sentiment < -0.3:
-            mood = "Negative"
-        else:
-            mood = "Mixed"
-
-        print(f"Week: {week}")
-        print(f" - Avg Sentiment Score: {sentiment:.2f} ({mood})")
-        print(f" - Avg Rating: {rating:.1f}")
-        print(f" - Reviews Count: {count}\n")
+# Helper function (define this elsewhere)
+def get_sentiment_category(score):
+    if score > 0.3: return "Positive"
+    elif score < -0.3: return "Negative"
+    return "Mixed"
